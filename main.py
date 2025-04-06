@@ -3,6 +3,7 @@ import random
 
 # Put all the functions into another file and import them
 import functions
+import combat
 
 # Define two Dice
 small_dice_options = list(range(1, 7))
@@ -199,48 +200,7 @@ if not input_invalid:
     # Loop while the monster and the player are alive. Call fight sequence functions
     print("    ------------------------------------------------------------------")
     print("    |    You meet the monster. FIGHT!!")
-    while m_health_points > 0 and health_points > 0:
-        # Fight Sequence
-        print("    |", end="    ")
-
-        # Lab 5: Question 5:
-        input("Roll to see who strikes first (Press Enter)")
-        attack_roll = random.choice(small_dice_options)
-        if not (attack_roll % 2 == 0):
-            print("    |", end="    ")
-            input("You strike (Press enter)")
-            m_health_points = functions.hero_attacks(combat_strength, m_health_points)
-            if m_health_points == 0:
-                num_stars = 3
-            else:
-                print("    |", end="    ")
-                print("------------------------------------------------------------------")
-                input("    |    The monster strikes (Press enter)!!!")
-                health_points = functions.monster_attacks(m_combat_strength, health_points)
-                if health_points == 0:
-                    num_stars = 1
-                else:
-                    num_stars = 2
-        else:
-            print("    |", end="    ")
-            input("The Monster strikes (Press enter)")
-            health_points = functions.monster_attacks(m_combat_strength, health_points)
-            if health_points == 0:
-                num_stars = 1
-            else:
-                print("    |", end="    ")
-                print("------------------------------------------------------------------")
-                input("The hero strikes!! (Press enter)")
-                m_health_points = functions.hero_attacks(combat_strength, m_health_points)
-                if m_health_points == 0:
-                    num_stars = 3
-                else:
-                    num_stars = 2
-
-    if(m_health_points <= 0):
-        winner = "Hero"
-    else:
-        winner = "Monster"
+    winner = combat.combat_turn(health_points, combat_strength, m_health_points, m_combat_strength)
 
     # Final Score Display
     tries = 0
