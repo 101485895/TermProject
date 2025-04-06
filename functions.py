@@ -174,3 +174,25 @@ def adjust_combat_strength(combat_strength, m_combat_strength):
             print("    |    ... Based on your previous game, neither the hero nor the monster's combat strength will be increased")
 
 
+def health_loot_filter(belt, health_points):
+    good_loot_hp = ["Health Potion"]
+    bad_loot_hp = ["Poison Potion"]
+
+    print("    |    Checking your belt for health related loot...")
+
+    health_items = [item for item in belt if item in good_loot_hp + bad_loot_hp]
+
+    if not health_items:
+        print("    |    No health-related items found in belt.")
+        return belt, health_points
+
+    for item in health_items:
+        if item in good_loot_hp:
+            health_points = min(20, health_points + 2)
+            print(f"    |    {item} found! You gained 2 health")
+
+        elif item in bad_loot_hp:
+            health_points = max (0, health_points - 2)
+            print(f"    |    {item} found. You lost 2 health. Current health: {health_points}")
+    belt.remove(item)
+    return belt, health_points
