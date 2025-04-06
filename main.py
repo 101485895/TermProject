@@ -133,7 +133,27 @@ if not input_invalid:
     print("    |    Your belt: ", belt)
 
     # Use Loot
-    belt, health_points = functions.use_loot(belt, health_points)
+    # belt, health_points = functions.use_loot(belt, health_points)
+
+
+    choice = input("Would you like to view your health-related loot items? (yes/no): ").lower()
+
+    if choice in ["yes", "y"]:
+        health_items = [item for item in belt if item in ["Health Potion", "Poison Potion"]]
+        if health_items:
+            print("    |    Health-related items in your belt:")
+            for item in health_items:
+                if item == "Health Potion":
+                    print(f"    |    {item} (increases health)")
+                elif item == "Poison Potion":
+                    print(f"    |    {item} (decreases health)")
+        else:
+            print("    |    You have no health-related items.")
+    elif choice in ["no", "n"]:
+        print("    |    Alright, skipping the health loot filter.")
+    else:
+        print("    |    Invalid input. Skipping health loot filter.")
+
 
     print("    ------------------------------------------------------------------")
     print("    |", end="    ")
