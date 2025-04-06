@@ -151,7 +151,6 @@ def combat_turn(hero_hp, combat_strength, monster_hp, m_combat_strength):
         attack = combat_pick(hero_attacks) # We use this instead of feeding the combat_pick() into the handle() function to catch if user blocks or flees which are not coded into the handler
         monster_attack = monster_pick(monster_behavior, m_health_points, max_health)
         if attack == 'flee': # Run away option, results in monster winning technically
-            health_points *= 0.85
             print("You've fled the battle, not unscathed though")
             return 'Monster'
         else:
@@ -209,3 +208,4 @@ def combat_turn(hero_hp, combat_strength, monster_hp, m_combat_strength):
                 else:
                     print("Monster has killed you!")
                     return 'Monster'
+combat_turn(100, 10, 100, 10)
